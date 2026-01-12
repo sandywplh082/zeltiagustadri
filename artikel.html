@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artikel – Hijab Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<style>
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+body {
+  margin: 0;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 173, 214, 0.16), transparent 58%),
+    radial-gradient(circle at 100% 100%, rgba(164, 196, 255, 0.16), transparent 58%),
+    linear-gradient(140deg, #050816 0%, #060b1b 40%, #050816 100%);
+  color: #f9fbff;
+  -webkit-font-smoothing: antialiased;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.main-header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  height: 80px;
+  z-index: 40;
+  backdrop-filter: blur(20px);
+  background: linear-gradient(90deg, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.94));
+  border-bottom: 1px solid rgba(244, 166, 192, 0.22);
+}
+.nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 16px;
+  background: conic-gradient(from 210deg, #ff6b9c, #ffd7ef, #f4a6c0, #a7b9ff, #ff6b9c);
+  padding: 2px;
+}
+.logo-mark-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: radial-gradient(circle at 25% 0, rgba(255, 255, 255, 0.6), transparent 46%), radial-gradient(circle at 80% 120%, rgba(5, 8, 22, 0.5), #050816);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #050816;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+.logo-text-main {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.logo-sub {
+  font-size: 11px;
+  color: #b8bdd4;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+}
+.nav-links a {
+  padding: 8px 0;
+  position: relative;
+  color: #b8bdd4;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff6b9c, #f4a6c0);
+  transition: width 260ms ease-out;
+}
+.nav-links a:hover {
+  color: #ffffff;
+}
+.nav-links a.active {
+  color: #f4a6c0;
+}
+.nav-links a.active::after {
+  width: 100%;
+}
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn {
+  border-radius: 999px;
+  padding: 9px 18px;
+  border: 1px solid transparent;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  background: none;
+  color: #f9fbff;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #ff6b9c, #ffc2dd);
+  color: #1a0920;
+}
+.btn-ghost {
+  border-color: rgba(244, 166, 192, 0.5);
+  background: linear-gradient(135deg, rgba(244, 166, 192, 0.16), rgba(5, 8, 22, 0.92));
+}
+.nav-toggle {
+  display: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(5, 8, 22, 0.88);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.nav-toggle-lines {
+  width: 18px;
+  height: 14px;
+  position: relative;
+}
+.nav-toggle-lines span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+}
+.nav-toggle-lines span:nth-child(1) {
+  top: 0;
+}
+.nav-toggle-lines span:nth-child(2) {
+  top: 6px;
+}
+.nav-toggle-lines span:nth-child(3) {
+  top: 12px;
+}
+.nav-toggle.open .nav-toggle-lines span:nth-child(1) {
+  top: 6px;
+  transform: rotate(45deg);
+}
+.nav-toggle.open .nav-toggle-lines span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.open .nav-toggle-lines span:nth-child(3) {
+  top: 6px;
+  transform: rotate(-45deg);
+}
+main {
+  padding-top: 90px;
+  padding-bottom: 40px;
+}
+.section {
+  padding-block: 18px 40px;
+}
+.section-header {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+.section-kicker {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f4a6c0;
+  margin-bottom: 6px;
+}
+.section-title {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 24px;
+}
+.section-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #b8bdd4;
+  max-width: 360px;
+}
+.blog-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 22px;
+  align-items: start;
+}
+.blog-main {
+  min-width: 0;
+}
+.sidebar {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  display: grid;
+  gap: 14px;
+}
+.widget {
+  border-radius: 18px;
+  padding: 14px 14px 14px;
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.18), transparent 65%), rgba(5, 8, 22, 0.96);
+  border: 1px solid rgba(184, 189, 212, 0.35);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.75);
+}
+.widget-title {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f4a6c0;
+  margin-bottom: 10px;
+}
+.search-box {
+  position: relative;
+}
+.search-input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(184, 189, 212, 0.65);
+  background: rgba(5, 8, 22, 0.98);
+  color: #f9fbff;
+  font-size: 12px;
+  padding: 10px 34px 10px 12px;
+  outline: none;
+}
+.search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 166, 192, 0.55);
+  background: rgba(5, 8, 22, 0.9);
+  color: #f4a6c0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+}
+.search-clear.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.post-list {
+  display: grid;
+  gap: 14px;
+}
+.post-entry {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.18), transparent 62%), rgba(5, 8, 22, 0.96);
+  border: 1px solid rgba(244, 166, 192, 0.28);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.75);
+}
+.post-thumb {
+  position: relative;
+  overflow: hidden;
+}
+.post-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.post-entry-body {
+  padding: 14px 14px 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.post-entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+  color: #b8bdd4;
+}
+.meta-pill {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(5, 8, 22, 0.9);
+  border: 1px solid rgba(244, 166, 192, 0.45);
+}
+.post-entry-title {
+  margin: 0;
+  font-size: 16px;
+}
+.post-entry-excerpt {
+  margin: 0;
+  font-size: 12px;
+  color: #b8bdd4;
+}
+.post-entry-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 6px;
+}
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tag {
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(184, 189, 212, 0.5);
+  color: #b8bdd4;
+  font-size: 10px;
+  background: rgba(5, 8, 22, 0.86);
+}
+.readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #f4a6c0;
+}
+.readmore span:last-child {
+  display: inline-block;
+}
+.pagination {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 18px;
+  padding: 10px 12px;
+  background: rgba(5, 8, 22, 0.92);
+  border: 1px solid rgba(184, 189, 212, 0.35);
+  font-size: 11px;
+  color: #b8bdd4;
+}
+.page-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(244, 166, 192, 0.55);
+  background: rgba(5, 8, 22, 0.92);
+  color: #f9fbff;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+.page-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.page-info {
+  font-size: 11px;
+}
+.post-empty {
+  border-radius: 18px;
+  padding: 14px 14px;
+  background: rgba(5, 8, 22, 0.92);
+  border: 1px dashed rgba(244, 166, 192, 0.6);
+  color: #b8bdd4;
+  font-size: 12px;
+  display: none;
+}
+.post-empty.visible {
+  display: block;
+}
+footer {
+  border-top: 1px solid rgba(184, 189, 212, 0.25);
+  padding-block: 14px 22px;
+  margin-top: 18px;
+  background: rgba(5, 8, 22, 0.96);
+  font-size: 11px;
+  color: #b8bdd4;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.footer-links {
+  display: flex;
+  gap: 10px;
+}
+.footer-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(184, 189, 212, 0.5);
+}
+@media (max-width: 960px) {
+  .blog-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sidebar {
+    position: static;
+  }
+}
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    inset-inline: 0;
+    top: 80px;
+    background: rgba(5, 8, 22, 0.98);
+    border-bottom: 1px solid rgba(184, 189, 212, 0.25);
+    padding: 12px 18px 15px;
+    display: grid;
+    gap: 10px;
+    transform-origin: top;
+    transform: scaleY(0.8);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nav-links.open {
+    transform: scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nav-cta {
+    display: none;
+  }
+  .nav-toggle {
+    display: inline-flex;
+  }
+  .post-entry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .post-entry-body {
+    padding: 12px 14px 14px;
+  }
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 560px) {
+  main {
+    padding-top: 88px;
+    padding-bottom: 28px;
+  }
+  .section {
+    padding-block: 10px 44px;
+  }
+}
+</style>
+</head>
+<body>
+<header class="main-header">
+  <div class="container nav-inner">
+    <div class="logo-group">
+      <div class="logo-mark">
+        <div class="logo-mark-inner">H</div>
+      </div>
+      <div>
+        <div class="logo-text-main">Hijab Journal</div>
+        <div class="logo-sub">Catatan gaya & perjalanan hati</div>
+      </div>
+    </div>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigasi">
+        <div class="nav-toggle-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+      <div class="nav-links">
+        <a href="index.html#home">Beranda</a>
+        <a href="index.html#tentang">Tentang</a>
+        <a href="#artikel" class="active">Artikel</a>
+        <a href="galeri.html">Galeri</a>
+        <a href="index.html#kontak">Kontak</a>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-ghost">
+        <span>Mode hijab harian</span>
+      </button>
+      <button class="btn btn-primary">
+        <span>Ikuti blog</span>
+      </button>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="section" id="artikel">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Blog</div>
+          <h1 class="section-title">Semua artikel</h1>
+        </div>
+        <p class="section-subtitle">
+          Halaman khusus untuk menjelajah tulisan hijab, gaya, dan refleksi.
+        </p>
+      </div>
+      <div class="blog-layout">
+        <div class="blog-main">
+          <div class="post-list" id="postList">
+            <article class="post-entry" data-title="Gaya hijab pastel untuk hari kerja yang panjang" data-category="Style" data-tags="pastel,office,harian" data-date="2026-01-07">
+              <a class="post-thumb" href="#">
+                <img src="https://images.pexels.com/photos/3760852/pexels-photo-3760852.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Gaya hijab pastel">
+              </a>
+              <div class="post-entry-body">
+                <div class="post-entry-meta">
+                  <span>7 Januari 2026</span>
+                  <span class="meta-pill">Style</span>
+                  <span>4 menit baca</span>
+                </div>
+                <h2 class="post-entry-title"><a href="#">Gaya hijab pastel untuk hari kerja yang panjang</a></h2>
+                <p class="post-entry-excerpt">Mix and match hijab pastel yang lembut tapi tetap rapi untuk seharian di kantor, tanpa harus ribet di kaca terlalu lama.</p>
+                <div class="post-entry-footer">
+                  <div class="tag-row">
+                    <span class="tag">pastel</span>
+                    <span class="tag">office</span>
+                    <span class="tag">harian</span>
+                  </div>
+                  <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
+                </div>
+              </div>
+            </article>
+            <article class="post-entry" data-title="Saat hijab menjadi pengingat lembut untuk hati" data-category="Refleksi" data-tags="hijrah,iman,catatan" data-date="2025-12-25">
+              <a class="post-thumb" href="#">
+                <img src="https://images.pexels.com/photos/7249027/pexels-photo-7249027.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Refleksi hijab">
+              </a>
+              <div class="post-entry-body">
+                <div class="post-entry-meta">
+                  <span>25 Desember 2025</span>
+                  <span class="meta-pill">Refleksi</span>
+                  <span>3 menit baca</span>
+                </div>
+                <h2 class="post-entry-title"><a href="#">Saat hijab menjadi pengingat lembut untuk hati</a></h2>
+                <p class="post-entry-excerpt">Tentang bagaimana selembar kain di kepala bisa menjadi alarm kecil setiap kali langkah kita mulai menjauh dari arah yang seharusnya.</p>
+                <div class="post-entry-footer">
+                  <div class="tag-row">
+                    <span class="tag">hijrah</span>
+                    <span class="tag">iman</span>
+                    <span class="tag">catatan</span>
+                  </div>
+                  <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
+                </div>
+              </div>
+            </article>
+            <article class="post-entry" data-title="Tips hijab tetap rapi dan nyaman seharian" data-category="Tips" data-tags="nyaman,rapi,praktis" data-date="2025-12-10">
+              <a class="post-thumb" href="#">
+                <img src="https://images.pexels.com/photos/7248161/pexels-photo-7248161.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Tips hijab nyaman">
+              </a>
+              <div class="post-entry-body">
+                <div class="post-entry-meta">
+                  <span>10 Desember 2025</span>
+                  <span class="meta-pill">Tips</span>
+                  <span>5 menit baca</span>
+                </div>
+                <h2 class="post-entry-title"><a href="#">Tips hijab tetap rapi dan nyaman seharian</a></h2>
+                <p class="post-entry-excerpt">Beberapa kebiasaan kecil yang membantu hijab tetap di tempatnya, leher tetap nyaman, dan hati tetap ringan beraktivitas.</p>
+                <div class="post-entry-footer">
+                  <div class="tag-row">
+                    <span class="tag">nyaman</span>
+                    <span class="tag">rapi</span>
+                    <span class="tag">praktis</span>
+                  </div>
+                  <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
+                </div>
+              </div>
+            </article>
+            <article class="post-entry" data-title="Tutorial hijab segiempat simple anti ribet" data-category="Tutorial" data-tags="tutorial,segiempat,praktis" data-date="2025-11-20">
+              <a class="post-thumb" href="#">
+                <img src="https://images.pexels.com/photos/7249021/pexels-photo-7249021.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Tutorial hijab segiempat">
+              </a>
+              <div class="post-entry-body">
+                <div class="post-entry-meta">
+                  <span>20 November 2025</span>
+                  <span class="meta-pill">Tutorial</span>
+                  <span>6 menit baca</span>
+                </div>
+                <h2 class="post-entry-title"><a href="#">Tutorial hijab segiempat simple anti ribet</a></h2>
+                <p class="post-entry-excerpt">Langkah cepat untuk tampilan rapi yang cocok dipakai kuliah, kerja, atau sekadar ngopi sore tanpa khawatir berantakan.</p>
+                <div class="post-entry-footer">
+                  <div class="tag-row">
+                    <span class="tag">tutorial</span>
+                    <span class="tag">segiempat</span>
+                    <span class="tag">praktis</span>
+                  </div>
+                  <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="post-empty" id="postEmpty">Tidak ada artikel yang cocok.</div>
+          <div class="pagination">
+            <button class="page-btn" id="pagePrev" type="button">← Sebelumnya</button>
+            <div class="page-info">Halaman <span id="pageCurrent">1</span> / <span id="pageTotal">1</span></div>
+            <button class="page-btn" id="pageNext" type="button">Berikutnya →</button>
+          </div>
+        </div>
+        <aside class="sidebar">
+          <div class="widget">
+            <div class="widget-title">Cari</div>
+            <div class="search-box">
+              <input class="search-input" id="searchInput" type="text" placeholder="Cari artikel (judul / kategori / tag)">
+              <button class="search-clear" id="searchClear" type="button" aria-label="Hapus pencarian">×</button>
+            </div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">Kategori</div>
+            <div class="tag-row">
+              <span class="tag">Style</span>
+              <span class="tag">Refleksi</span>
+              <span class="tag">Tips</span>
+              <span class="tag">Tutorial</span>
+            </div>
+          </div>
+          <div class="widget">
+            <div class="widget-title">Newsletter</div>
+            <div style="font-size:12px;color:#b8bdd4;line-height:1.6;margin-bottom:10px;">
+              Dapatkan ringkasan tulisan setiap pekan (simulasi tampilan saja).
+            </div>
+            <input class="search-input" type="email" placeholder="Email kamu">
+            <div style="margin-top:10px;">
+              <button class="btn btn-primary" type="button" style="width:100%;justify-content:center;">Subscribe</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container footer-inner">
+    <div>© <span id="year"></span> Hijab Journal • halaman artikel</div>
+    <div class="footer-links">
+      <div class="footer-pill">Ruang aman, tanpa judging</div>
+      <div class="footer-pill">Untuk diri sendiri dulu, baru orang lain</div>
+    </div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var navToggle = document.querySelector(".nav-toggle");
+  var navLinks = document.querySelector(".nav-links");
+  var searchInput = document.getElementById("searchInput");
+  var searchClear = document.getElementById("searchClear");
+  var postList = document.getElementById("postList");
+  var postEmpty = document.getElementById("postEmpty");
+  var pagePrev = document.getElementById("pagePrev");
+  var pageNext = document.getElementById("pageNext");
+  var pageCurrent = document.getElementById("pageCurrent");
+  var pageTotal = document.getElementById("pageTotal");
+  var yearSpan = document.getElementById("year");
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+  }
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", function () {
+      navToggle.classList.toggle("open");
+      navLinks.classList.toggle("open");
+    });
+  }
+  function normaliseText(t) {
+    return (t || "").toString().toLowerCase();
+  }
+  var allPosts = [];
+  var postsPerPage = 3;
+  var currentPage = 1;
+  if (postList) {
+    allPosts = Array.prototype.slice.call(postList.querySelectorAll(".post-entry"));
+  }
+  function applyFilterAndPagination() {
+    if (!postList || !allPosts.length) {
+      return;
+    }
+    var term = searchInput ? normaliseText(searchInput.value) : "";
+    var filtered = allPosts.filter(function (el) {
+      if (!term) return true;
+      var title = normaliseText(el.getAttribute("data-title"));
+      var category = normaliseText(el.getAttribute("data-category"));
+      var tags = normaliseText(el.getAttribute("data-tags"));
+      return title.indexOf(term) !== -1 || category.indexOf(term) !== -1 || tags.indexOf(term) !== -1;
+    });
+    filtered.sort(function (a, b) {
+      var da = a.getAttribute("data-date") || "";
+      var db = b.getAttribute("data-date") || "";
+      if (da === db) return 0;
+      return da > db ? -1 : 1;
+    });
+    var totalPages = Math.max(1, Math.ceil(filtered.length / postsPerPage));
+    if (currentPage > totalPages) currentPage = totalPages;
+    var start = (currentPage - 1) * postsPerPage;
+    var end = start + postsPerPage;
+    postList.innerHTML = "";
+    filtered.slice(start, end).forEach(function (el) {
+      postList.appendChild(el);
+    });
+    if (pageCurrent) pageCurrent.textContent = String(currentPage);
+    if (pageTotal) pageTotal.textContent = String(totalPages);
+    if (pagePrev) pagePrev.disabled = currentPage === 1;
+    if (pageNext) pageNext.disabled = currentPage === totalPages;
+    if (postEmpty) {
+      if (!filtered.length) {
+        postEmpty.classList.add("visible");
+      } else {
+        postEmpty.classList.remove("visible");
+      }
+    }
+  }
+  if (searchInput) {
+    searchInput.addEventListener("input", function () {
+      currentPage = 1;
+      if (searchClear) {
+        if (searchInput.value) {
+          searchClear.classList.add("visible");
+        } else {
+          searchClear.classList.remove("visible");
+        }
+      }
+      applyFilterAndPagination();
+    });
+  }
+  if (searchClear && searchInput) {
+    searchClear.addEventListener("click", function () {
+      searchInput.value = "";
+      searchClear.classList.remove("visible");
+      currentPage = 1;
+      applyFilterAndPagination();
+    });
+  }
+  if (pagePrev) {
+    pagePrev.addEventListener("click", function () {
+      if (currentPage > 1) {
+        currentPage -= 1;
+        applyFilterAndPagination();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+  }
+  if (pageNext) {
+    pageNext.addEventListener("click", function () {
+      if (!postList || !allPosts.length) return;
+      var term = searchInput ? normaliseText(searchInput.value) : "";
+      var filtered = allPosts.filter(function (el) {
+        if (!term) return true;
+        var title = normaliseText(el.getAttribute("data-title"));
+        var category = normaliseText(el.getAttribute("data-category"));
+        var tags = normaliseText(el.getAttribute("data-tags"));
+        return title.indexOf(term) !== -1 || category.indexOf(term) !== -1 || tags.indexOf(term) !== -1;
+      });
+      var totalPages = Math.max(1, Math.ceil(filtered.length / postsPerPage));
+      if (currentPage < totalPages) {
+        currentPage += 1;
+        applyFilterAndPagination();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+  }
+  applyFilterAndPagination();
+});
+</script>
+</body>
+</html>
