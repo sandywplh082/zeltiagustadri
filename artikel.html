@@ -442,6 +442,42 @@ footer {
   border-radius: 999px;
   border: 1px solid rgba(184, 189, 212, 0.5);
 }
+/* Detail artikel */
+.post-detail {
+  border-radius: 18px;
+  padding: 18px 18px 20px;
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.18), transparent 65%), rgba(5, 8, 22, 0.96);
+  border: 1px solid rgba(184, 189, 212, 0.35);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.75);
+  display: none;
+}
+.post-detail.visible {
+  display: block;
+}
+.post-detail-title {
+  margin: 8px 0 6px;
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+}
+.post-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #b8bdd4;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.post-detail-content {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #eef2ff;
+}
+.post-detail-content p {
+  margin: 0 0 12px;
+}
+.back-btn {
+  margin-bottom: 6px;
+}
 @media (max-width: 960px) {
   .blog-layout {
     grid-template-columns: minmax(0, 1fr);
@@ -550,10 +586,16 @@ footer {
       </div>
       <div class="blog-layout">
         <div class="blog-main">
+          <div class="post-detail" id="postDetail">
+            <button class="btn btn-ghost back-btn" type="button" id="detailBack">← Kembali ke daftar</button>
+            <h2 class="post-detail-title" id="detailTitle"></h2>
+            <div class="post-detail-meta" id="detailMeta"></div>
+            <div class="post-detail-content" id="detailContent"></div>
+          </div>
           <div class="post-list" id="postList">
             <article class="post-entry" data-title="Gaya hijab pastel untuk hari kerja yang panjang" data-category="Style" data-tags="pastel,office,harian" data-date="2026-01-07">
               <a class="post-thumb" href="#">
-                <img src="https://images.pexels.com/photos/3760852/pexels-photo-3760852.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Gaya hijab pastel">
+                <img src="1.png" alt="Gaya hijab pastel harian">
               </a>
               <div class="post-entry-body">
                 <div class="post-entry-meta">
@@ -571,11 +613,35 @@ footer {
                   </div>
                   <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
                 </div>
+                <div class="post-content" style="display:none;">
+                  <p>Warna pastel selalu aman untuk hari kerja yang panjang. Mulai dari pashmina lembut atau segiempat tipis dengan tone lilac, peach, atau dusty blue, dipadukan atasan netral supaya keseluruhan tampak rapi.</p>
+                  <p>Prioritaskan bahan yang jatuhnya enak dan tidak mudah kusut. Pashmina chiffon atau voile tipis membantu kepala tetap adem, sementara segiempat katun memberi bentuk yang tegas.</p>
+                  <h3>Palet yang aman</h3>
+                  <ul>
+                    <li>Atasan putih/cream + hijab pastel lilac</li>
+                    <li>Blazer abu + hijab peach lembut</li>
+                    <li>Dress hitam polos + hijab dusty blue</li>
+                  </ul>
+                  <h3>Checklist pagi</h3>
+                  <ul>
+                    <li>Setrika bagian depan hijab saja</li>
+                    <li>Inner nyaman, tidak terlalu tebal</li>
+                    <li>Jarum/magnet di titik lipatan utama</li>
+                  </ul>
+                  <h3>Mix & match cepat</h3>
+                  <p>Gunakan aksesori kecil seperti bros tipis untuk menambah aksen tanpa mengganggu kenyamanan. Sepatu netral dan tas sederhana menjaga fokus tetap pada wajah dan ekspresi.</p>
+                  <h3>Jika mulai berantakan</h3>
+                  <ul>
+                    <li>Semprot sedikit face mist untuk menata ulang jatuhan kain</li>
+                    <li>Rapikan sisi pipi dengan satu jarum kecil</li>
+                    <li>Ambil jeda 1 menit di toilet, tarik napas, rapikan lipatan</li>
+                  </ul>
+                </div>
               </div>
             </article>
             <article class="post-entry" data-title="Saat hijab menjadi pengingat lembut untuk hati" data-category="Refleksi" data-tags="hijrah,iman,catatan" data-date="2025-12-25">
               <a class="post-thumb" href="#">
-                <img src="https://images.pexels.com/photos/7249027/pexels-photo-7249027.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Refleksi hijab">
+                <img src="2.png" alt="Refleksi hijab lembut untuk hati">
               </a>
               <div class="post-entry-body">
                 <div class="post-entry-meta">
@@ -593,11 +659,29 @@ footer {
                   </div>
                   <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
                 </div>
+                <div class="post-content" style="display:none;">
+                  <p>Hijab bukan hanya pakaian, tetapi juga pengingat lembut untuk hati. Setiap kali merapikan lipatan, kita diingatkan untuk merapikan niat: untuk siapa, ke mana, dan bagaimana langkah hari ini.</p>
+                  <p>Di tengah bisingnya dunia, hijab menjaga kita tetap sederhana. Ia mengingatkan bahwa cantik sejati bermula dari akhlak yang tenang dan ucapan yang baik.</p>
+                  <h3>Ritual kecil</h3>
+                  <ul>
+                    <li>Berdoa pelan saat memakai hijab</li>
+                    <li>Mengingat satu alasan kebaikan untuk dijaga hari itu</li>
+                    <li>Memaafkan diri atas kesalahan kemarin, memulai ulang dengan niat baik</li>
+                  </ul>
+                  <h3>Ketika lelah</h3>
+                  <p>Ambil jeda. Duduk sebentar, rapikan lipatan hijab, tarik napas panjang, sebutkan syukur kecil: udara, langkah, kesempatan. Lelah seringkali lunak ketika disapa dengan syukur.</p>
+                  <h3>Menjaga konsistensi</h3>
+                  <ul>
+                    <li>Jadwalkan momen refleksi singkat tiap malam</li>
+                    <li>Tulis satu kalimat pengingat di ponsel</li>
+                    <li>Pilih teman ngobrol yang menenangkan, bukan yang menambah bising</li>
+                  </ul>
+                </div>
               </div>
             </article>
             <article class="post-entry" data-title="Tips hijab tetap rapi dan nyaman seharian" data-category="Tips" data-tags="nyaman,rapi,praktis" data-date="2025-12-10">
               <a class="post-thumb" href="#">
-                <img src="https://images.pexels.com/photos/7248161/pexels-photo-7248161.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Tips hijab nyaman">
+                <img src="3.png" alt="Tips hijab rapi dan nyaman">
               </a>
               <div class="post-entry-body">
                 <div class="post-entry-meta">
@@ -615,11 +699,32 @@ footer {
                   </div>
                   <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
                 </div>
+                <div class="post-content" style="display:none;">
+                  <p>Gunakan inner dengan bahan yang tidak licin agar hijab tidak mudah bergeser. Pilih jarum atau magnet yang kuat tapi ringan supaya leher tetap nyaman sepanjang hari.</p>
+                  <h3>Set-up yang awet</h3>
+                  <ul>
+                    <li>Inner scuba tipis atau rajut halus</li>
+                    <li>Jarum kepala bulat atau magnet kuat</li>
+                    <li>Hijab bahan breathable: voile, chiffon, katun tipis</li>
+                  </ul>
+                  <h3>Pattern anti berantakan</h3>
+                  <ul>
+                    <li>Bentuk dasar simpel, hindari lilitan berlapis</li>
+                    <li>Kunci satu sisi di pipi dengan jarum kecil</li>
+                    <li>Biarkan sisi lain jatuh natural untuk mobilitas</li>
+                  </ul>
+                  <h3>Kit darurat</h3>
+                  <ul>
+                    <li>Tisu, dua jarum cadangan, mini hairclip</li>
+                    <li>Deodorant wipes untuk leher dan inner</li>
+                    <li>Kantung kecil supaya kit tidak tercecer di tas</li>
+                  </ul>
+                </div>
               </div>
             </article>
             <article class="post-entry" data-title="Tutorial hijab segiempat simple anti ribet" data-category="Tutorial" data-tags="tutorial,segiempat,praktis" data-date="2025-11-20">
               <a class="post-thumb" href="#">
-                <img src="https://images.pexels.com/photos/7249021/pexels-photo-7249021.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Tutorial hijab segiempat">
+                <img src="4.png" alt="Tutorial hijab segiempat simple">
               </a>
               <div class="post-entry-body">
                 <div class="post-entry-meta">
@@ -636,6 +741,23 @@ footer {
                     <span class="tag">praktis</span>
                   </div>
                   <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
+                </div>
+                <div class="post-content" style="display:none;">
+                  <p>Mulai dari melipat segiempat jadi segitiga, posisikan bagian depan sedikit menutup dahi agar rapi. Jepit di bawah dagu, lalu rapikan sisi kiri-kanan.</p>
+                  <h3>Langkah cepat</h3>
+                  <ol>
+                    <li>Lipat segiempat menjadi segitiga, samakan ujung</li>
+                    <li>Letakkan di kepala, tarik kedua sisi ke bawah dagu</li>
+                    <li>Jepit dengan jarum, rapikan garis di pipi</li>
+                    <li>Masukkan sisa kain ke dalam baju atau biarkan jatuh</li>
+                  </ol>
+                  <h3>Variasi aman</h3>
+                  <ul>
+                    <li>Tambahkan bros kecil di bahu untuk aksen</li>
+                    <li>Gunakan magnet di pipi untuk garis yang tegas</li>
+                    <li>Biarkan satu sisi sedikit lebih panjang untuk look elegan</li>
+                  </ul>
+                  <p>Ini gaya anti ribet yang cocok dipakai setiap hari — sederhana, cepat, dan tetap manis, bahkan saat harus berganti aktivitas berkali-kali.</p>
                 </div>
               </div>
             </article>
@@ -700,6 +822,11 @@ document.addEventListener("DOMContentLoaded", function () {
   var pageNext = document.getElementById("pageNext");
   var pageCurrent = document.getElementById("pageCurrent");
   var pageTotal = document.getElementById("pageTotal");
+  var detail = document.getElementById("postDetail");
+  var detailBack = document.getElementById("detailBack");
+  var detailTitle = document.getElementById("detailTitle");
+  var detailMeta = document.getElementById("detailMeta");
+  var detailContent = document.getElementById("detailContent");
   var yearSpan = document.getElementById("year");
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
@@ -718,6 +845,37 @@ document.addEventListener("DOMContentLoaded", function () {
   var currentPage = 1;
   if (postList) {
     allPosts = Array.prototype.slice.call(postList.querySelectorAll(".post-entry"));
+  }
+  function showDetail(articleEl) {
+    if (!detail || !articleEl) return;
+    var title = articleEl.getAttribute("data-title") || "";
+    var category = articleEl.getAttribute("data-category") || "";
+    var date = articleEl.getAttribute("data-date") || "";
+    var contentEl = articleEl.querySelector(".post-content");
+    var contentHTML = contentEl ? contentEl.innerHTML : (articleEl.querySelector(".post-entry-excerpt") ? "<p>" + articleEl.querySelector(".post-entry-excerpt").textContent + "</p>" : "");
+    if (detailTitle) detailTitle.textContent = title;
+    if (detailMeta) {
+      detailMeta.innerHTML = "<span>" + date + "</span><span class='meta-pill'>" + category + "</span>";
+    }
+    if (detailContent) detailContent.innerHTML = contentHTML;
+    detail.classList.add("visible");
+    postList.style.display = "none";
+    var pag = document.querySelector(".pagination");
+    if (pag) pag.style.display = "none";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function hideDetail() {
+    if (!detail || !postList) return;
+    detail.classList.remove("visible");
+    postList.style.display = "grid";
+    var pag = document.querySelector(".pagination");
+    if (pag) pag.style.display = "flex";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  if (detailBack) {
+    detailBack.addEventListener("click", function () {
+      hideDetail();
+    });
   }
   function applyFilterAndPagination() {
     if (!postList || !allPosts.length) {
@@ -807,6 +965,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   applyFilterAndPagination();
+  if (postList) {
+    postList.addEventListener("click", function (e) {
+      var target = e.target;
+      if (!target) return;
+      var link = target.closest(".readmore, .post-entry-title a, .post-thumb");
+      if (link) {
+        e.preventDefault();
+        var articleEl = link.closest(".post-entry");
+        showDetail(articleEl);
+      }
+    });
+  }
 });
 </script>
 </body>
