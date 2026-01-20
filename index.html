@@ -3,15 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artikel – Hijab Journal</title>
+<title>Blog Hijab Pribadi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 <style>
-html {
-  scroll-behavior: smooth;
-  overflow-y: scroll;
-  scrollbar-gutter: stable;
+:root {
+  --bg-color: #050816;
+  --bg-soft: #0b1020;
+  --accent: #f4a6c0;
+  --accent-strong: #ff6b9c;
+  --accent-soft: rgba(244, 166, 192, 0.16);
+  --text-main: #f9fbff;
+  --text-muted: #b8bdd4;
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 18px 45px rgba(5, 8, 22, 0.92);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-pill: 999px;
+  --header-height: 80px;
+  --transition-fast: 200ms ease-out;
+  --transition-med: 320ms ease-out;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 body {
   margin: 0;
@@ -20,21 +37,25 @@ body {
     radial-gradient(circle at 0% 0%, rgba(255, 173, 214, 0.16), transparent 58%),
     radial-gradient(circle at 100% 100%, rgba(164, 196, 255, 0.16), transparent 58%),
     linear-gradient(140deg, #050816 0%, #060b1b 40%, #050816 100%);
-  color: #f9fbff;
+  color: var(--text-main);
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+img {
+  max-width: 100%;
+  display: block;
 }
 a {
   color: inherit;
   text-decoration: none;
 }
-img {
-  max-width: 100%;
-  display: block;
+button {
+  font-family: inherit;
 }
 .container {
   width: 100%;
@@ -46,11 +67,17 @@ img {
   position: fixed;
   inset-inline: 0;
   top: 0;
-  height: 80px;
+  height: var(--header-height);
   z-index: 40;
   backdrop-filter: blur(20px);
-  background: linear-gradient(90deg, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.94));
-  border-bottom: 1px solid rgba(244, 166, 192, 0.22);
+  background: linear-gradient(90deg, rgba(5, 8, 22, 0.92), rgba(5, 8, 22, 0.88));
+  border-bottom: 1px solid rgba(244, 166, 192, 0.12);
+  transition: background var(--transition-med), border-color var(--transition-med), box-shadow var(--transition-med), transform 200ms ease-out;
+}
+.main-header.scrolled {
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.16), transparent 60%), rgba(5, 8, 22, 0.98);
+  border-color: rgba(244, 166, 192, 0.35);
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.65);
 }
 .nav-inner {
   height: 100%;
@@ -70,6 +97,8 @@ img {
   border-radius: 16px;
   background: conic-gradient(from 210deg, #ff6b9c, #ffd7ef, #f4a6c0, #a7b9ff, #ff6b9c);
   padding: 2px;
+  position: relative;
+  overflow: hidden;
 }
 .logo-mark-inner {
   width: 100%;
@@ -92,7 +121,7 @@ img {
 }
 .logo-sub {
   font-size: 11px;
-  color: #b8bdd4;
+  color: var(--text-muted);
 }
 .nav-links {
   display: flex;
@@ -103,7 +132,8 @@ img {
 .nav-links a {
   padding: 8px 0;
   position: relative;
-  color: #b8bdd4;
+  color: var(--text-muted);
+  transition: color var(--transition-fast), transform var(--transition-fast);
 }
 .nav-links a::after {
   content: "";
@@ -112,15 +142,16 @@ img {
   bottom: 0;
   width: 0;
   height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #ff6b9c, #f4a6c0);
-  transition: width 260ms ease-out;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+  transition: width var(--transition-med);
 }
 .nav-links a:hover {
-  color: #ffffff;
+  color: var(--text-main);
+  transform: translateY(-1px);
 }
 .nav-links a.active {
-  color: #f4a6c0;
+  color: var(--accent);
 }
 .nav-links a.active::after {
   width: 100%;
@@ -131,8 +162,8 @@ img {
   gap: 12px;
 }
 .btn {
-  border-radius: 999px;
-  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  padding: 10px 20px;
   border: 1px solid transparent;
   font-size: 13px;
   font-weight: 500;
@@ -144,15 +175,37 @@ img {
   gap: 8px;
   cursor: pointer;
   background: none;
-  color: #f9fbff;
+  color: var(--text-main);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
 }
 .btn-primary {
-  background: linear-gradient(135deg, #ff6b9c, #ffc2dd);
+  background: linear-gradient(135deg, var(--accent-strong), #ffc2dd);
   color: #1a0920;
+  box-shadow: 0 16px 35px rgba(255, 107, 156, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px) translateZ(0);
+  box-shadow: 0 18px 42px rgba(255, 107, 156, 0.5);
 }
 .btn-ghost {
-  border-color: rgba(244, 166, 192, 0.5);
-  background: linear-gradient(135deg, rgba(244, 166, 192, 0.16), rgba(5, 8, 22, 0.92));
+  border-color: rgba(244, 166, 192, 0.45);
+  background: linear-gradient(135deg, rgba(244, 166, 192, 0.12), rgba(5, 8, 22, 0.9));
+}
+.btn-ghost:hover {
+  border-color: rgba(244, 166, 192, 0.85);
+  background: linear-gradient(135deg, rgba(244, 166, 192, 0.32), rgba(5, 8, 22, 0.96));
+}
+.btn-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 22, 0.85);
+  color: var(--accent);
+  font-size: 14px;
+  transform: translateZ(0);
 }
 .nav-toggle {
   display: none;
@@ -177,6 +230,7 @@ img {
   height: 2px;
   border-radius: 999px;
   background: #ffffff;
+  transition: transform 180ms ease-out, top 180ms ease-out, opacity 100ms ease-out;
 }
 .nav-toggle-lines span:nth-child(1) {
   top: 0;
@@ -199,14 +253,201 @@ img {
   transform: rotate(-45deg);
 }
 main {
-  padding-top: 90px;
-  padding-bottom: 40px;
+  padding-top: calc(var(--header-height) + 20px);
+}
+.hero {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  padding-block: 46px 70px;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.1fr);
+  gap: 40px;
+  align-items: center;
+}
+.hero-copy {
+  position: relative;
+  padding-right: 10px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px 5px 6px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(244, 166, 192, 0.7);
+  background: rgba(5, 8, 22, 0.94);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.badge-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 0, #fff, #ffd7ef, #ff6b9c);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 4px rgba(255, 107, 156, 0.15);
+}
+.badge-dot-inner {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #050816;
+}
+.badge-label {
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+.hero-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(32px, 4vw, 42px);
+  line-height: 1.2;
+  margin: 0 0 18px;
+}
+.hero-highlight {
+  background: linear-gradient(120deg, var(--accent), #ffd7ef, #a7b9ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.hero-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  max-width: 480px;
+}
+.hero-subtitle strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 22px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.hero-meta-item span:first-child {
+  color: var(--text-main);
+  font-weight: 500;
+}
+.hero-visual {
+  position: relative;
+}
+.hero-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.28), transparent 55%), linear-gradient(145deg, rgba(7, 13, 32, 0.95), rgba(5, 8, 23, 0.98));
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+.hero-orbit {
+  position: absolute;
+  inset: -50%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 10% 0, rgba(252, 215, 255, 0.4), transparent 55%),
+    radial-gradient(circle at 90% 100%, rgba(157, 204, 255, 0.4), transparent 55%);
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  animation: orbit 26s linear infinite;
+}
+.hero-image-shell {
+  position: relative;
+  border-radius: 26px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 0, rgba(255, 255, 255, 0.4), transparent 46%), radial-gradient(circle at 0 100%, #321a3a, #050816);
+}
+.hero-image-shell img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transform: scale(1.03);
+  filter: saturate(1.08) contrast(1.04);
+}
+.hero-pill {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(5, 8, 22, 0.96);
+  border: 1px solid rgba(244, 166, 192, 0.65);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.hero-pill-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 0, #fff, #ffd7ef, #ff6b9c);
+}
+.hero-floating-card {
+  position: absolute;
+  left: -4px;
+  top: 18px;
+  padding: 11px 13px;
+  min-width: 170px;
+  border-radius: 18px;
+  border: 1px solid rgba(244, 166, 192, 0.45);
+  background: rgba(5, 8, 22, 0.92);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  animation: float 6s ease-in-out infinite;
+}
+.hero-floating-card-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.hero-floating-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 3px;
+}
+.hero-tag {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  background: linear-gradient(135deg, rgba(244, 166, 192, 0.18), rgba(5, 8, 22, 0.96));
+  border: 1px solid rgba(244, 166, 192, 0.45);
+}
+.hero-floating-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+.hero-floating-count strong {
+  font-size: 15px;
 }
 .section {
-  padding-block: 18px 40px;
+  padding-block: 18px 56px;
 }
 .section-header {
-  margin-bottom: 24px;
+  margin-bottom: 26px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -216,19 +457,188 @@ main {
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #f4a6c0;
+  color: var(--accent);
   margin-bottom: 6px;
 }
 .section-title {
   margin: 0;
   font-family: "Playfair Display", serif;
-  font-size: 24px;
+  font-size: 22px;
 }
 .section-subtitle {
   margin: 0;
   font-size: 13px;
-  color: #b8bdd4;
+  color: var(--text-muted);
   max-width: 360px;
+}
+.section-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 11px;
+}
+.chip {
+  border-radius: var(--radius-pill);
+  padding: 5px 10px;
+  border: 1px solid rgba(184, 189, 212, 0.4);
+  color: var(--text-muted);
+  background: rgba(5, 8, 22, 0.85);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.05fr);
+  gap: 32px;
+}
+.about-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.about-pill {
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(5, 8, 22, 0.9);
+  border: 1px solid rgba(184, 189, 212, 0.4);
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.about-pill strong {
+  font-size: 13px;
+  color: var(--text-main);
+}
+.about-timeline {
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.2), transparent 55%), rgba(5, 8, 22, 0.98);
+  border: 1px solid rgba(244, 166, 192, 0.45);
+  box-shadow: var(--shadow-soft);
+  font-size: 12px;
+}
+.timeline-row {
+  display: flex;
+  gap: 12px;
+}
+.timeline-year {
+  min-width: 58px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.timeline-dot-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.timeline-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 0, #fff, #ffd7ef, #ff6b9c);
+}
+.timeline-line {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(184, 189, 212, 0.7), transparent);
+}
+.timeline-content {
+  flex: 1;
+  color: var(--text-muted);
+}
+.timeline-title {
+  font-size: 12px;
+  color: var(--text-main);
+  margin-bottom: 3px;
+}
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.timeline-tag {
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 166, 192, 0.45);
+  font-size: 10px;
+}
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+.post-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.2), transparent 58%), rgba(5, 8, 22, 0.96);
+  border: 1px solid rgba(244, 166, 192, 0.32);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
+  padding: 16px 15px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transform: translateY(0) translateZ(0);
+  transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med), background var(--transition-med);
+}
+.post-card:hover {
+  transform: translateY(-8px) translateZ(0);
+  box-shadow: 0 26px 46px rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 199, 219, 0.8);
+  background: radial-gradient(circle at 20% 0, rgba(255, 199, 219, 0.25), transparent 62%), rgba(5, 8, 22, 0.98);
+}
+.post-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.post-tag {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(5, 8, 22, 0.9);
+  border: 1px solid rgba(244, 166, 192, 0.45);
+}
+.post-title {
+  font-size: 15px;
+  margin: 0;
+}
+.post-excerpt {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.post-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+}
+.post-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--accent);
+}
+.post-read-arrow {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+.post-card:hover .post-read-arrow {
+  transform: translateX(4px);
+}
+.post-stats {
+  font-size: 11px;
+  color: var(--text-muted);
 }
 .blog-layout {
   display: grid;
@@ -241,13 +651,13 @@ main {
 }
 .sidebar {
   position: sticky;
-  top: 100px;
+  top: calc(var(--header-height) + 22px);
   align-self: start;
   display: grid;
   gap: 14px;
 }
 .widget {
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   padding: 14px 14px 14px;
   background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.18), transparent 65%), rgba(5, 8, 22, 0.96);
   border: 1px solid rgba(184, 189, 212, 0.35);
@@ -257,7 +667,7 @@ main {
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #f4a6c0;
+  color: var(--accent);
   margin-bottom: 10px;
 }
 .search-box {
@@ -268,10 +678,16 @@ main {
   border-radius: 14px;
   border: 1px solid rgba(184, 189, 212, 0.65);
   background: rgba(5, 8, 22, 0.98);
-  color: #f9fbff;
+  color: var(--text-main);
   font-size: 12px;
   padding: 10px 34px 10px 12px;
   outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+.search-input:focus {
+  border-color: rgba(244, 166, 192, 0.85);
+  box-shadow: 0 0 0 1px rgba(244, 166, 192, 0.6);
+  background: rgba(5, 8, 22, 0.95);
 }
 .search-clear {
   position: absolute;
@@ -283,16 +699,21 @@ main {
   border-radius: 999px;
   border: 1px solid rgba(244, 166, 192, 0.55);
   background: rgba(5, 8, 22, 0.9);
-  color: #f4a6c0;
+  color: var(--accent);
   cursor: pointer;
   display: grid;
   place-items: center;
   opacity: 0;
   pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
 }
 .search-clear.visible {
   opacity: 1;
   pointer-events: auto;
+}
+.search-clear:hover {
+  border-color: rgba(244, 166, 192, 0.95);
+  transform: translateY(-50%) scale(1.03);
 }
 .post-list {
   display: grid;
@@ -303,26 +724,42 @@ main {
   grid-template-columns: 170px minmax(0, 1fr);
   gap: 14px;
   align-items: stretch;
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.18), transparent 62%), rgba(5, 8, 22, 0.96);
   border: 1px solid rgba(244, 166, 192, 0.28);
   box-shadow: 0 18px 35px rgba(0, 0, 0, 0.75);
+  transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med), background var(--transition-med);
+}
+.post-entry:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 46px rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 199, 219, 0.75);
+  background: radial-gradient(circle at 20% 0, rgba(255, 199, 219, 0.22), transparent 62%), rgba(5, 8, 22, 0.98);
 }
 .post-thumb {
   position: relative;
   overflow: hidden;
+  background: rgba(5, 8, 22, 0.9);
 }
 .post-thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 900ms cubic-bezier(0.19, 1, 0.22, 1), filter 900ms cubic-bezier(0.19, 1, 0.22, 1);
+  filter: saturate(1.05) contrast(1.02);
+}
+.post-entry:hover .post-thumb img {
+  transform: scale(1.1);
+  filter: saturate(1.15) contrast(1.06);
 }
 .post-entry-body {
   padding: 14px 14px 14px 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 }
 .post-entry-meta {
   display: flex;
@@ -330,22 +767,32 @@ main {
   gap: 8px;
   align-items: center;
   font-size: 11px;
-  color: #b8bdd4;
+  color: var(--text-muted);
 }
 .meta-pill {
   padding: 4px 9px;
   border-radius: 999px;
   background: rgba(5, 8, 22, 0.9);
   border: 1px solid rgba(244, 166, 192, 0.45);
+  color: var(--text-muted);
 }
 .post-entry-title {
   margin: 0;
   font-size: 16px;
+  line-height: 1.35;
+}
+.post-entry-title a {
+  color: var(--text-main);
+  transition: color var(--transition-fast);
+}
+.post-entry:hover .post-entry-title a {
+  color: rgba(255, 215, 239, 0.95);
 }
 .post-entry-excerpt {
   margin: 0;
   font-size: 12px;
-  color: #b8bdd4;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 .post-entry-footer {
   margin-top: auto;
@@ -364,7 +811,7 @@ main {
   padding: 3px 8px;
   border-radius: 999px;
   border: 1px solid rgba(184, 189, 212, 0.5);
-  color: #b8bdd4;
+  color: var(--text-muted);
   font-size: 10px;
   background: rgba(5, 8, 22, 0.86);
 }
@@ -373,10 +820,14 @@ main {
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: #f4a6c0;
+  color: var(--accent);
 }
 .readmore span:last-child {
   display: inline-block;
+  transition: transform var(--transition-fast);
+}
+.post-entry:hover .readmore span:last-child {
+  transform: translateX(4px);
 }
 .pagination {
   margin-top: 16px;
@@ -384,47 +835,227 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   padding: 10px 12px;
   background: rgba(5, 8, 22, 0.92);
   border: 1px solid rgba(184, 189, 212, 0.35);
-  font-size: 11px;
-  color: #b8bdd4;
 }
 .page-btn {
   border-radius: 999px;
   border: 1px solid rgba(244, 166, 192, 0.55);
   background: rgba(5, 8, 22, 0.92);
-  color: #f9fbff;
+  color: var(--text-main);
   padding: 7px 12px;
   cursor: pointer;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), opacity var(--transition-fast);
+}
+.page-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(244, 166, 192, 0.95);
+  background: rgba(5, 8, 22, 0.98);
 }
 .page-btn:disabled {
   opacity: 0.35;
   cursor: default;
+  transform: none;
 }
 .page-info {
   font-size: 11px;
+  color: var(--text-muted);
 }
 .post-empty {
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   padding: 14px 14px;
   background: rgba(5, 8, 22, 0.92);
   border: 1px dashed rgba(244, 166, 192, 0.6);
-  color: #b8bdd4;
+  color: var(--text-muted);
   font-size: 12px;
   display: none;
 }
 .post-empty.visible {
   display: block;
 }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.6fr;
+  gap: 22px;
+}
+.gallery-left,
+.gallery-right {
+  display: grid;
+  gap: 22px;
+}
+.gallery-left {
+  grid-template-rows: 1.15fr 1fr;
+}
+.gallery-right {
+  grid-template-rows: 1fr 1.1fr;
+}
+.gallery-item {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: translateZ(0);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.85);
+}
+.gallery-image-layer {
+  width: 92%;
+  height: 92%;
+  margin: 4% auto;
+  transform: scale(1.0);
+  transition: transform 900ms cubic-bezier(0.19, 1, 0.22, 1), filter 900ms cubic-bezier(0.19, 1, 0.22, 1);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0b1020;
+}
+.gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 15% 0, transparent 20%, rgba(0, 0, 0, 0.45) 65%), linear-gradient(to top, rgba(5, 8, 22, 0.96), transparent 55%);
+  mix-blend-mode: multiply;
+}
+.gallery-item:hover .gallery-image-layer {
+  transform: scale(1.0);
+  filter: saturate(1.03) contrast(1.02);
+}
+.gallery-caption {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  font-size: 12px;
+  color: #f7f7ff;
+}
+.gallery-caption strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+  gap: 28px;
+}
+.contact-card {
+  border-radius: var(--radius-lg);
+  padding: 18px 18px 18px;
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.26), transparent 65%), rgba(5, 8, 22, 0.98);
+  border: 1px solid rgba(244, 166, 192, 0.6);
+  box-shadow: var(--shadow-soft);
+}
+.contact-intro {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.contact-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(244, 166, 192, 0.14);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  color: var(--accent);
+}
+.social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.social-chip {
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px dashed rgba(244, 166, 192, 0.75);
+  font-size: 11px;
+  background: rgba(5, 8, 22, 0.95);
+}
+.contact-form-card {
+  border-radius: var(--radius-lg);
+  padding: 18px 18px 20px;
+  background: radial-gradient(circle at 100% 0, rgba(164, 196, 255, 0.2), transparent 55%), rgba(5, 8, 22, 0.97);
+  border: 1px solid rgba(184, 189, 212, 0.6);
+  box-shadow: var(--shadow-soft);
+}
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+}
+.form-label {
+  color: var(--text-main);
+}
+.form-input,
+.form-textarea {
+  border-radius: 14px;
+  border: 1px solid rgba(184, 189, 212, 0.7);
+  background: rgba(5, 8, 22, 0.98);
+  color: var(--text-main);
+  font-size: 12px;
+  padding: 9px 11px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 38px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+.form-textarea {
+  min-height: 80px;
+}
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(184, 189, 212, 0.7);
+}
+.form-input:focus,
+.form-textarea:focus {
+  border-color: rgba(244, 166, 192, 0.8);
+  box-shadow: 0 0 0 1px rgba(244, 166, 192, 0.6);
+  background: rgba(5, 8, 22, 0.95);
+}
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+.form-note {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.form-note strong {
+  color: var(--accent);
+}
 footer {
   border-top: 1px solid rgba(184, 189, 212, 0.25);
   padding-block: 14px 22px;
   margin-top: 18px;
-  background: rgba(5, 8, 22, 0.96);
-  font-size: 11px;
-  color: #b8bdd4;
+  background: radial-gradient(circle at 50% 100%, rgba(244, 166, 192, 0.12), transparent 60%), rgba(5, 8, 22, 0.96);
 }
 .footer-inner {
   display: flex;
@@ -432,6 +1063,8 @@ footer {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  font-size: 11px;
+  color: var(--text-muted);
 }
 .footer-links {
   display: flex;
@@ -442,55 +1075,208 @@ footer {
   border-radius: 999px;
   border: 1px solid rgba(184, 189, 212, 0.5);
 }
-/* Detail artikel */
-.post-detail {
-  border-radius: 18px;
-  padding: 18px 18px 20px;
-  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.18), transparent 65%), rgba(5, 8, 22, 0.96);
-  border: 1px solid rgba(184, 189, 212, 0.35);
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.75);
+.back-to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 166, 192, 0.6);
+  background: radial-gradient(circle at 30% 0, #fff, #ffd7ef, #ff6b9c);
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  color: #1a0920;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px) translateZ(0);
+  pointer-events: none;
+  transition: opacity var(--transition-med), transform var(--transition-med), box-shadow var(--transition-med);
+  box-shadow: 0 18px 40px rgba(255, 107, 156, 0.65);
+  z-index: 50;
+}
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+  pointer-events: auto;
+}
+.back-to-top:hover {
+  box-shadow: 0 24px 50px rgba(255, 107, 156, 0.82);
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.58);
   display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 70;
 }
-.post-detail.visible {
-  display: block;
+.modal-overlay.visible {
+  display: flex;
 }
-.post-detail-title {
-  margin: 8px 0 6px;
-  font-family: "Playfair Display", serif;
-  font-size: 26px;
+.modal {
+  width: min(560px, 100%);
+  border-radius: 22px;
+  padding: 16px 16px 14px;
+  background: radial-gradient(circle at 0 0, rgba(244, 166, 192, 0.22), transparent 62%), rgba(5, 8, 22, 0.98);
+  border: 1px solid rgba(244, 166, 192, 0.5);
+  box-shadow: 0 26px 55px rgba(0, 0, 0, 0.85);
 }
-.post-detail-meta {
+.modal-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.modal-title {
+  margin: 0;
+  font-size: 16px;
+}
+.modal-desc {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.modal-close {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 166, 192, 0.6);
+  background: rgba(5, 8, 22, 0.92);
+  color: var(--accent);
+  cursor: pointer;
+}
+.modal-content {
+  display: grid;
+  gap: 10px;
+}
+.modal-row {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.modal-row label {
+  color: var(--text-main);
+}
+.modal-input {
+  border-radius: 14px;
+  border: 1px solid rgba(184, 189, 212, 0.7);
+  background: rgba(5, 8, 22, 0.98);
+  color: var(--text-main);
+  font-size: 12px;
+  padding: 10px 11px;
+  outline: none;
+}
+.modal-input:focus {
+  border-color: rgba(244, 166, 192, 0.85);
+  box-shadow: 0 0 0 1px rgba(244, 166, 192, 0.6);
+}
+.modal-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
   gap: 10px;
-  color: #b8bdd4;
+  margin-top: 6px;
+}
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(5, 8, 22, 0.96);
+  border: 1px solid rgba(244, 166, 192, 0.55);
+  color: var(--text-main);
   font-size: 12px;
-  margin-bottom: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75);
+  transition: opacity var(--transition-med), transform var(--transition-med);
+  z-index: 80;
 }
-.post-detail-content {
-  font-size: 14px;
-  line-height: 1.8;
-  color: #eef2ff;
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
-.post-detail-content p {
-  margin: 0 0 12px;
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(6px);
+  transition: opacity 700ms ease-out, transform 820ms cubic-bezier(0.22, 1, 0.36, 1), filter 700ms ease-out;
 }
-.back-btn {
-  margin-bottom: 6px;
+.reveal[data-animate="right"] {
+  transform: translateX(40px);
+}
+.reveal[data-animate="left"] {
+  transform: translateX(-40px);
+}
+.reveal.show {
+  opacity: 1;
+  transform: translate(0, 0);
+  filter: blur(0);
+}
+.reveal-delay-1 {
+  transition-delay: 80ms;
+}
+.reveal-delay-2 {
+  transition-delay: 160ms;
+}
+.reveal-delay-3 {
+  transition-delay: 260ms;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 @media (max-width: 960px) {
+  .hero-inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
+    gap: 28px;
+  }
+  .posts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .blog-layout {
     grid-template-columns: minmax(0, 1fr);
   }
   .sidebar {
     position: static;
   }
+  .gallery-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 @media (max-width: 768px) {
   .nav-links {
     position: absolute;
     inset-inline: 0;
-    top: 80px;
+    top: var(--header-height);
     background: rgba(5, 8, 22, 0.98);
     border-bottom: 1px solid rgba(184, 189, 212, 0.25);
     padding: 12px 18px 15px;
@@ -500,6 +1286,7 @@ footer {
     transform: scaleY(0.8);
     opacity: 0;
     pointer-events: none;
+    transition: transform 160ms ease-out, opacity 160ms ease-out;
   }
   .nav-links.open {
     transform: scaleY(1);
@@ -511,6 +1298,27 @@ footer {
   }
   .nav-toggle {
     display: inline-flex;
+  }
+  .hero {
+    padding-block: 40px 56px;
+  }
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero-copy {
+    order: 2;
+  }
+  .hero-visual {
+    order: 1;
+  }
+  .hero-image-shell img {
+    height: 260px;
+  }
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .posts-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
   .post-entry {
     grid-template-columns: minmax(0, 1fr);
@@ -525,11 +1333,28 @@ footer {
 }
 @media (max-width: 560px) {
   main {
-    padding-top: 88px;
-    padding-bottom: 28px;
+    padding-top: calc(var(--header-height) + 8px);
   }
   .section {
     padding-block: 10px 44px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .about-highlights {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .form-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .form-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
   }
 }
 </style>
@@ -542,7 +1367,7 @@ footer {
         <div class="logo-mark-inner">H</div>
       </div>
       <div>
-        <div class="logo-text-main">Hijab Journal</div>
+        <div class="logo-text-main">Zeltia Gustadri</div>
         <div class="logo-sub">Catatan gaya & perjalanan hati</div>
       </div>
     </div>
@@ -555,255 +1380,235 @@ footer {
         </div>
       </button>
       <div class="nav-links">
-        <a href="index.html#home">Beranda</a>
-        <a href="index.html#tentang">Tentang</a>
-        <a href="#artikel" class="active">Artikel</a>
+        <a href="#home" class="active">Beranda</a>
+        <a href="#tentang">Tentang</a>
+        <a href="artikel.html">Artikel</a>
         <a href="galeri.html">Galeri</a>
-        <a href="index.html#kontak">Kontak</a>
+        <a href="#kontak">Kontak</a>
       </div>
     </nav>
     <div class="nav-cta">
-      <button class="btn btn-ghost">
+      <button class="btn btn-ghost" type="button" id="modeBtn">
+        <span class="btn-icon">✦</span>
         <span>Mode hijab harian</span>
       </button>
-      <button class="btn btn-primary">
+      <button class="btn btn-primary" type="button" id="followBtn">
         <span>Ikuti blog</span>
       </button>
     </div>
   </div>
 </header>
 <main>
-  <section class="section" id="artikel">
+  <section class="hero" id="home">
+    <div class="container hero-inner">
+      <div class="hero-copy reveal reveal-delay-1">
+        <div class="badge">
+          <div class="badge-dot">
+            <div class="badge-dot-inner"></div>
+          </div>
+          <div class="badge-label">Blog hijab pribadi</div>
+        </div>
+        <h1 class="hero-title">
+          Cerita gaya dan hijrah, dengan sentuhan <span class="hero-highlight">Hijab</span> yang elegan.
+        </h1>
+        <p class="hero-subtitle">
+          Ruang kecil untuk menyimpan <strong>catatan gaya hijab</strong>, perjalanan iman, dan hal-hal manis yang menemani hari. Ditulis pelan, dinikmati pelan.
+        </p>
+      <div class="hero-actions">
+          <a href="artikel.html" class="btn btn-primary">
+            <span>Mulai membaca</span>
+            <span class="btn-icon">➜</span>
+          </a>
+          <a href="#tentang" class="btn btn-ghost">
+            <span>Kenalan dulu</span>
+          </a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span>3+</span>
+            <span>tahun menulis blog hijab</span>
+          </div>
+          <div class="hero-meta-item">
+            <span>50+</span>
+            <span>cerita gaya dan refleksi diri</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual reveal reveal-delay-2" data-animate="right">
+        <div class="hero-card">
+          <div class="hero-orbit"></div>
+          <div class="hero-image-shell">
+            <div class="hero-floating-card">
+              <div class="hero-floating-card-title">Mood hijab hari ini</div>
+              <div class="hero-floating-tags">
+                <div class="hero-tag">Pastel calm</div>
+                <div class="hero-tag">Simple & rapi</div>
+                <div class="hero-tag">Nyaman seharian</div>
+              </div>
+              <div class="hero-floating-count">
+                <div>
+                  <div>Look tersimpan</div>
+                  <strong>126</strong>
+                </div>
+                <div style="font-size:10px;color:var(--accent);">Updated live</div>
+              </div>
+            </div>
+            <img src="potodepan.png" alt="Ilustrasi muslimah berhijab">
+            <div class="hero-pill">
+              <div class="hero-pill-dot"></div>
+              <div>Hijab, hati, dan cerita yang tetap hangat.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="tentang">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div>
-          <div class="section-kicker">Blog</div>
-          <h1 class="section-title">Semua artikel</h1>
+          <div class="section-kicker">Tentang blog</div>
+          <h2 class="section-title">Perjalanan kecil bersama hijab</h2>
         </div>
         <p class="section-subtitle">
-          Halaman khusus untuk menjelajah tulisan hijab, gaya, dan refleksi.
+          Blog ini adalah ruang pribadi untuk menyimpan inspirasi gaya, catatan rasa, dan proses belajar agar hijab bukan sekadar kain, tapi juga pengingat kebaikan.
         </p>
       </div>
-      <div class="blog-layout">
-        <div class="blog-main">
-          <div class="post-detail" id="postDetail">
-            <button class="btn btn-ghost back-btn" type="button" id="detailBack">← Kembali ke daftar</button>
-            <h2 class="post-detail-title" id="detailTitle"></h2>
-            <div class="post-detail-meta" id="detailMeta"></div>
-            <div class="post-detail-content" id="detailContent"></div>
-          </div>
-          <div class="post-list" id="postList">
-            <article class="post-entry" data-title="Gaya hijab pastel untuk hari kerja yang panjang" data-category="Style" data-tags="pastel,office,harian" data-date="2026-01-07">
-              <a class="post-thumb" href="#">
-                <img src="1.png" alt="Gaya hijab pastel harian">
-              </a>
-              <div class="post-entry-body">
-                <div class="post-entry-meta">
-                  <span>7 Januari 2026</span>
-                  <span class="meta-pill">Style</span>
-                  <span>4 menit baca</span>
-                </div>
-                <h2 class="post-entry-title"><a href="#">Gaya hijab pastel untuk hari kerja yang panjang</a></h2>
-                <p class="post-entry-excerpt">Mix and match hijab pastel yang lembut tapi tetap rapi untuk seharian di kantor, tanpa harus ribet di kaca terlalu lama.</p>
-                <div class="post-entry-footer">
-                  <div class="tag-row">
-                    <span class="tag">pastel</span>
-                    <span class="tag">office</span>
-                    <span class="tag">harian</span>
-                  </div>
-                  <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
-                </div>
-                <div class="post-content" style="display:none;">
-                  <p>Warna pastel selalu aman untuk hari kerja yang panjang. Mulai dari pashmina lembut atau segiempat tipis dengan tone lilac, peach, atau dusty blue, dipadukan atasan netral supaya keseluruhan tampak rapi.</p>
-                  <p>Prioritaskan bahan yang jatuhnya enak dan tidak mudah kusut. Pashmina chiffon atau voile tipis membantu kepala tetap adem, sementara segiempat katun memberi bentuk yang tegas.</p>
-                  <h3>Palet yang aman</h3>
-                  <ul>
-                    <li>Atasan putih/cream + hijab pastel lilac</li>
-                    <li>Blazer abu + hijab peach lembut</li>
-                    <li>Dress hitam polos + hijab dusty blue</li>
-                  </ul>
-                  <h3>Checklist pagi</h3>
-                  <ul>
-                    <li>Setrika bagian depan hijab saja</li>
-                    <li>Inner nyaman, tidak terlalu tebal</li>
-                    <li>Jarum/magnet di titik lipatan utama</li>
-                  </ul>
-                  <h3>Mix & match cepat</h3>
-                  <p>Gunakan aksesori kecil seperti bros tipis untuk menambah aksen tanpa mengganggu kenyamanan. Sepatu netral dan tas sederhana menjaga fokus tetap pada wajah dan ekspresi.</p>
-                  <h3>Jika mulai berantakan</h3>
-                  <ul>
-                    <li>Semprot sedikit face mist untuk menata ulang jatuhan kain</li>
-                    <li>Rapikan sisi pipi dengan satu jarum kecil</li>
-                    <li>Ambil jeda 1 menit di toilet, tarik napas, rapikan lipatan</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-            <article class="post-entry" data-title="Saat hijab menjadi pengingat lembut untuk hati" data-category="Refleksi" data-tags="hijrah,iman,catatan" data-date="2025-12-25">
-              <a class="post-thumb" href="#">
-                <img src="2.png" alt="Refleksi hijab lembut untuk hati">
-              </a>
-              <div class="post-entry-body">
-                <div class="post-entry-meta">
-                  <span>25 Desember 2025</span>
-                  <span class="meta-pill">Refleksi</span>
-                  <span>3 menit baca</span>
-                </div>
-                <h2 class="post-entry-title"><a href="#">Saat hijab menjadi pengingat lembut untuk hati</a></h2>
-                <p class="post-entry-excerpt">Tentang bagaimana selembar kain di kepala bisa menjadi alarm kecil setiap kali langkah kita mulai menjauh dari arah yang seharusnya.</p>
-                <div class="post-entry-footer">
-                  <div class="tag-row">
-                    <span class="tag">hijrah</span>
-                    <span class="tag">iman</span>
-                    <span class="tag">catatan</span>
-                  </div>
-                  <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
-                </div>
-                <div class="post-content" style="display:none;">
-                  <p>Hijab bukan hanya pakaian, tetapi juga pengingat lembut untuk hati. Setiap kali merapikan lipatan, kita diingatkan untuk merapikan niat: untuk siapa, ke mana, dan bagaimana langkah hari ini.</p>
-                  <p>Di tengah bisingnya dunia, hijab menjaga kita tetap sederhana. Ia mengingatkan bahwa cantik sejati bermula dari akhlak yang tenang dan ucapan yang baik.</p>
-                  <h3>Ritual kecil</h3>
-                  <ul>
-                    <li>Berdoa pelan saat memakai hijab</li>
-                    <li>Mengingat satu alasan kebaikan untuk dijaga hari itu</li>
-                    <li>Memaafkan diri atas kesalahan kemarin, memulai ulang dengan niat baik</li>
-                  </ul>
-                  <h3>Ketika lelah</h3>
-                  <p>Ambil jeda. Duduk sebentar, rapikan lipatan hijab, tarik napas panjang, sebutkan syukur kecil: udara, langkah, kesempatan. Lelah seringkali lunak ketika disapa dengan syukur.</p>
-                  <h3>Menjaga konsistensi</h3>
-                  <ul>
-                    <li>Jadwalkan momen refleksi singkat tiap malam</li>
-                    <li>Tulis satu kalimat pengingat di ponsel</li>
-                    <li>Pilih teman ngobrol yang menenangkan, bukan yang menambah bising</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-            <article class="post-entry" data-title="Tips hijab tetap rapi dan nyaman seharian" data-category="Tips" data-tags="nyaman,rapi,praktis" data-date="2025-12-10">
-              <a class="post-thumb" href="#">
-                <img src="3.png" alt="Tips hijab rapi dan nyaman">
-              </a>
-              <div class="post-entry-body">
-                <div class="post-entry-meta">
-                  <span>10 Desember 2025</span>
-                  <span class="meta-pill">Tips</span>
-                  <span>5 menit baca</span>
-                </div>
-                <h2 class="post-entry-title"><a href="#">Tips hijab tetap rapi dan nyaman seharian</a></h2>
-                <p class="post-entry-excerpt">Beberapa kebiasaan kecil yang membantu hijab tetap di tempatnya, leher tetap nyaman, dan hati tetap ringan beraktivitas.</p>
-                <div class="post-entry-footer">
-                  <div class="tag-row">
-                    <span class="tag">nyaman</span>
-                    <span class="tag">rapi</span>
-                    <span class="tag">praktis</span>
-                  </div>
-                  <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
-                </div>
-                <div class="post-content" style="display:none;">
-                  <p>Gunakan inner dengan bahan yang tidak licin agar hijab tidak mudah bergeser. Pilih jarum atau magnet yang kuat tapi ringan supaya leher tetap nyaman sepanjang hari.</p>
-                  <h3>Set-up yang awet</h3>
-                  <ul>
-                    <li>Inner scuba tipis atau rajut halus</li>
-                    <li>Jarum kepala bulat atau magnet kuat</li>
-                    <li>Hijab bahan breathable: voile, chiffon, katun tipis</li>
-                  </ul>
-                  <h3>Pattern anti berantakan</h3>
-                  <ul>
-                    <li>Bentuk dasar simpel, hindari lilitan berlapis</li>
-                    <li>Kunci satu sisi di pipi dengan jarum kecil</li>
-                    <li>Biarkan sisi lain jatuh natural untuk mobilitas</li>
-                  </ul>
-                  <h3>Kit darurat</h3>
-                  <ul>
-                    <li>Tisu, dua jarum cadangan, mini hairclip</li>
-                    <li>Deodorant wipes untuk leher dan inner</li>
-                    <li>Kantung kecil supaya kit tidak tercecer di tas</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-            <article class="post-entry" data-title="Tutorial hijab segiempat simple anti ribet" data-category="Tutorial" data-tags="tutorial,segiempat,praktis" data-date="2025-11-20">
-              <a class="post-thumb" href="#">
-                <img src="4.png" alt="Tutorial hijab segiempat simple">
-              </a>
-              <div class="post-entry-body">
-                <div class="post-entry-meta">
-                  <span>20 November 2025</span>
-                  <span class="meta-pill">Tutorial</span>
-                  <span>6 menit baca</span>
-                </div>
-                <h2 class="post-entry-title"><a href="#">Tutorial hijab segiempat simple anti ribet</a></h2>
-                <p class="post-entry-excerpt">Langkah cepat untuk tampilan rapi yang cocok dipakai kuliah, kerja, atau sekadar ngopi sore tanpa khawatir berantakan.</p>
-                <div class="post-entry-footer">
-                  <div class="tag-row">
-                    <span class="tag">tutorial</span>
-                    <span class="tag">segiempat</span>
-                    <span class="tag">praktis</span>
-                  </div>
-                  <a class="readmore" href="#"><span>Baca</span><span>↗</span></a>
-                </div>
-                <div class="post-content" style="display:none;">
-                  <p>Mulai dari melipat segiempat jadi segitiga, posisikan bagian depan sedikit menutup dahi agar rapi. Jepit di bawah dagu, lalu rapikan sisi kiri-kanan.</p>
-                  <h3>Langkah cepat</h3>
-                  <ol>
-                    <li>Lipat segiempat menjadi segitiga, samakan ujung</li>
-                    <li>Letakkan di kepala, tarik kedua sisi ke bawah dagu</li>
-                    <li>Jepit dengan jarum, rapikan garis di pipi</li>
-                    <li>Masukkan sisa kain ke dalam baju atau biarkan jatuh</li>
-                  </ol>
-                  <h3>Variasi aman</h3>
-                  <ul>
-                    <li>Tambahkan bros kecil di bahu untuk aksen</li>
-                    <li>Gunakan magnet di pipi untuk garis yang tegas</li>
-                    <li>Biarkan satu sisi sedikit lebih panjang untuk look elegan</li>
-                  </ul>
-                  <p>Ini gaya anti ribet yang cocok dipakai setiap hari — sederhana, cepat, dan tetap manis, bahkan saat harus berganti aktivitas berkali-kali.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="post-empty" id="postEmpty">Tidak ada artikel yang cocok.</div>
-          <div class="pagination">
-            <button class="page-btn" id="pagePrev" type="button">← Sebelumnya</button>
-            <div class="page-info">Halaman <span id="pageCurrent">1</span> / <span id="pageTotal">1</span></div>
-            <button class="page-btn" id="pageNext" type="button">Berikutnya →</button>
+      <div class="about-grid">
+        <div class="about-text reveal reveal-delay-1">
+          <p>
+            Aku percaya setiap hijab punya cerita. Dari pagi yang terburu-buru tapi masih ingin tampil rapi, sampai malam yang tenang ketika kita menata hati dan mimpi.
+          </p>
+          <p>
+            Di sini, kamu akan menemukan <strong>look hijab harian</strong>, cara memadukan warna yang lembut, tips tetap nyaman seharian, sampai potongan kecil refleksi tentang iman dan perjalanan pulang pada Allah.
+          </p>
+          <div class="about-highlights">
+            <div class="about-pill">
+              <span>Fokus</span>
+              <strong>Gaya hijab harian</strong>
+              <span>Simple, sopan, tetap manis dipandang.</span>
+            </div>
+            <div class="about-pill">
+              <span>Rasa</span>
+              <strong>Catatan hati</strong>
+              <span>Refleksi pendek tentang hidup dan hijrah.</span>
+            </div>
+            <div class="about-pill">
+              <span>Bonus</span>
+              <strong>Curhat ringan</strong>
+              <span>Ngobrol santai tentang rutinitas sehari-hari.</span>
+            </div>
           </div>
         </div>
-        <aside class="sidebar">
-          <div class="widget">
-            <div class="widget-title">Cari</div>
-            <div class="search-box">
-              <input class="search-input" id="searchInput" type="text" placeholder="Cari artikel (judul / kategori / tag)">
-              <button class="search-clear" id="searchClear" type="button" aria-label="Hapus pencarian">×</button>
+        <div class="about-timeline reveal reveal-delay-2" data-animate="right">
+          <div class="timeline-row">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-dot-col">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-title">Mulai serius menulis</div>
+              <div>Blog hijab ini lahir dari keinginan sederhana: menyimpan perjalanan hati dan gaya agar bisa dibaca ulang suatu hari nanti.</div>
+              <div class="timeline-tags">
+                <div class="timeline-tag">Niat baru</div>
+                <div class="timeline-tag">Hijrah pelan</div>
+              </div>
             </div>
           </div>
-          <div class="widget">
-            <div class="widget-title">Kategori</div>
-            <div class="tag-row">
-              <span class="tag">Style</span>
-              <span class="tag">Refleksi</span>
-              <span class="tag">Tips</span>
-              <span class="tag">Tutorial</span>
+          <div class="timeline-row" style="margin-top:14px;">
+            <div class="timeline-year">Sekarang</div>
+            <div class="timeline-dot-col">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-title">Masih belajar, masih menulis</div>
+              <div>Setiap tulisan di sini bukan nasihat, hanya pengingat lembut yang pertama kali ditujukan untuk diri sendiri.</div>
+              <div class="timeline-tags">
+                <div class="timeline-tag">Belajar konsisten</div>
+                <div class="timeline-tag">Sharing pelan-pelan</div>
+              </div>
             </div>
           </div>
-          <div class="widget">
-            <div class="widget-title">Newsletter</div>
-            <div style="font-size:12px;color:#b8bdd4;line-height:1.6;margin-bottom:10px;">
-              Dapatkan ringkasan tulisan setiap pekan (simulasi tampilan saja).
-            </div>
-            <input class="search-input" type="email" placeholder="Email kamu">
-            <div style="margin-top:10px;">
-              <button class="btn btn-primary" type="button" style="width:100%;justify-content:center;">Subscribe</button>
-            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="kontak">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <div class="section-kicker">Tetap terhubung</div>
+          <h2 class="section-title">Ada cerita yang ingin kamu bagi?</h2>
+        </div>
+        <p class="section-subtitle">
+          Kamu bisa kirim pesan, berbagi cerita hijabmu, atau sekadar menyapa. Pelan-pelan, kita bisa saling menguatkan.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card reveal reveal-delay-1">
+          <div class="contact-intro">
+            Blog ini sengaja dibuat hangat dan pelan. Tidak ada tuntutan untuk sempurna, hanya ruang aman untuk berbagi rasa.
           </div>
-        </aside>
+          <ul class="contact-list">
+            <li>
+              <div class="contact-dot">♡</div>
+              <div>Tulis email singkat jika ingin berbagi perjalanan hijabmu.</div>
+            </li>
+            <li>
+              <div class="contact-dot">✉</div>
+              <div>Email: kamu@hijabjournal.id</div>
+            </li>
+            <li>
+              <div class="contact-dot">☾</div>
+              <div>Aku baca pesan pelan-pelan, tapi insyaAllah dengan sungguh-sungguh.</div>
+            </li>
+          </ul>
+          <div class="social-row">
+            <div class="social-chip">Instagram • @hijab.journal</div>
+            <div class="social-chip">Pinterest • Moodboard hijab</div>
+            <div class="social-chip">Telegram • Catatan pendek</div>
+          </div>
+        </div>
+        <div class="contact-form-card reveal reveal-delay-2" data-animate="right">
+          <form>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="nama">Nama</label>
+                <input class="form-input" id="nama" type="text" name="nama" placeholder="Tulis nama panggilanmu">
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-input" id="email" type="email" name="email" placeholder="Alamat email aktif">
+              </div>
+            </div>
+            <div class="form-field" style="margin-top:10px;">
+              <label class="form-label" for="topik">Topik</label>
+              <input class="form-input" id="topik" type="text" name="topik" placeholder="Misal: cerita hijrah, tips gaya hijab, curhat ringan">
+            </div>
+            <div class="form-field" style="margin-top:10px;">
+              <label class="form-label" for="pesan">Pesan</label>
+              <textarea class="form-textarea" id="pesan" name="pesan" placeholder="Tulis apa saja yang ingin kamu bagi di sini."></textarea>
+            </div>
+            <div class="form-footer">
+              <div class="form-note">
+                Pesan ini belum terkirim ke mana-mana, kamu bisa gunakan sebagai
+                <strong>catatan pribadi</strong> juga.
+              </div>
+              <button type="button" class="btn btn-primary" id="contactSend">
+                <span>Kunci di hati</span>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 </main>
+<button class="back-to-top" aria-label="Kembali ke atas">↑</button>
 <footer>
   <div class="container footer-inner">
-    <div>© <span id="year"></span> Hijab Journal • halaman artikel</div>
+    <div>© <span id="year"></span> Hijab Journal • ditulis dengan pelan</div>
     <div class="footer-links">
       <div class="footer-pill">Ruang aman, tanpa judging</div>
       <div class="footer-pill">Untuk diri sendiri dulu, baru orang lain</div>
@@ -812,169 +1617,102 @@ footer {
 </footer>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+  var header = document.querySelector(".main-header");
   var navToggle = document.querySelector(".nav-toggle");
   var navLinks = document.querySelector(".nav-links");
-  var searchInput = document.getElementById("searchInput");
-  var searchClear = document.getElementById("searchClear");
-  var postList = document.getElementById("postList");
-  var postEmpty = document.getElementById("postEmpty");
-  var pagePrev = document.getElementById("pagePrev");
-  var pageNext = document.getElementById("pageNext");
-  var pageCurrent = document.getElementById("pageCurrent");
-  var pageTotal = document.getElementById("pageTotal");
-  var detail = document.getElementById("postDetail");
-  var detailBack = document.getElementById("detailBack");
-  var detailTitle = document.getElementById("detailTitle");
-  var detailMeta = document.getElementById("detailMeta");
-  var detailContent = document.getElementById("detailContent");
+  var navAnchors = document.querySelectorAll(".nav-links a[href^='#']");
+  var backToTop = document.querySelector(".back-to-top");
   var yearSpan = document.getElementById("year");
+  var contactSend = document.getElementById("contactSend");
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
   }
+  function updateHeader() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    if (scrollY > 10) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+    if (scrollY > 420) {
+      backToTop.classList.add("visible");
+    } else {
+      backToTop.classList.remove("visible");
+    }
+  }
+  updateHeader();
+  window.addEventListener("scroll", updateHeader);
   if (navToggle && navLinks) {
     navToggle.addEventListener("click", function () {
       navToggle.classList.toggle("open");
       navLinks.classList.toggle("open");
     });
-  }
-  function normaliseText(t) {
-    return (t || "").toString().toLowerCase();
-  }
-  var allPosts = [];
-  var postsPerPage = 3;
-  var currentPage = 1;
-  if (postList) {
-    allPosts = Array.prototype.slice.call(postList.querySelectorAll(".post-entry"));
-  }
-  function showDetail(articleEl) {
-    if (!detail || !articleEl) return;
-    var title = articleEl.getAttribute("data-title") || "";
-    var category = articleEl.getAttribute("data-category") || "";
-    var date = articleEl.getAttribute("data-date") || "";
-    var contentEl = articleEl.querySelector(".post-content");
-    var contentHTML = contentEl ? contentEl.innerHTML : (articleEl.querySelector(".post-entry-excerpt") ? "<p>" + articleEl.querySelector(".post-entry-excerpt").textContent + "</p>" : "");
-    if (detailTitle) detailTitle.textContent = title;
-    if (detailMeta) {
-      detailMeta.innerHTML = "<span>" + date + "</span><span class='meta-pill'>" + category + "</span>";
-    }
-    if (detailContent) detailContent.innerHTML = contentHTML;
-    detail.classList.add("visible");
-    postList.style.display = "none";
-    var pag = document.querySelector(".pagination");
-    if (pag) pag.style.display = "none";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-  function hideDetail() {
-    if (!detail || !postList) return;
-    detail.classList.remove("visible");
-    postList.style.display = "grid";
-    var pag = document.querySelector(".pagination");
-    if (pag) pag.style.display = "flex";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-  if (detailBack) {
-    detailBack.addEventListener("click", function () {
-      hideDetail();
-    });
-  }
-  function applyFilterAndPagination() {
-    if (!postList || !allPosts.length) {
-      return;
-    }
-    var term = searchInput ? normaliseText(searchInput.value) : "";
-    var filtered = allPosts.filter(function (el) {
-      if (!term) return true;
-      var title = normaliseText(el.getAttribute("data-title"));
-      var category = normaliseText(el.getAttribute("data-category"));
-      var tags = normaliseText(el.getAttribute("data-tags"));
-      return title.indexOf(term) !== -1 || category.indexOf(term) !== -1 || tags.indexOf(term) !== -1;
-    });
-    filtered.sort(function (a, b) {
-      var da = a.getAttribute("data-date") || "";
-      var db = b.getAttribute("data-date") || "";
-      if (da === db) return 0;
-      return da > db ? -1 : 1;
-    });
-    var totalPages = Math.max(1, Math.ceil(filtered.length / postsPerPage));
-    if (currentPage > totalPages) currentPage = totalPages;
-    var start = (currentPage - 1) * postsPerPage;
-    var end = start + postsPerPage;
-    postList.innerHTML = "";
-    filtered.slice(start, end).forEach(function (el) {
-      postList.appendChild(el);
-    });
-    if (pageCurrent) pageCurrent.textContent = String(currentPage);
-    if (pageTotal) pageTotal.textContent = String(totalPages);
-    if (pagePrev) pagePrev.disabled = currentPage === 1;
-    if (pageNext) pageNext.disabled = currentPage === totalPages;
-    if (postEmpty) {
-      if (!filtered.length) {
-        postEmpty.classList.add("visible");
-      } else {
-        postEmpty.classList.remove("visible");
-      }
-    }
-  }
-  if (searchInput) {
-    searchInput.addEventListener("input", function () {
-      currentPage = 1;
-      if (searchClear) {
-        if (searchInput.value) {
-          searchClear.classList.add("visible");
-        } else {
-          searchClear.classList.remove("visible");
+    navAnchors.forEach(function (anchor) {
+      anchor.addEventListener("click", function () {
+        if (window.innerWidth <= 768) {
+          navToggle.classList.remove("open");
+          navLinks.classList.remove("open");
         }
-      }
-      applyFilterAndPagination();
-    });
-  }
-  if (searchClear && searchInput) {
-    searchClear.addEventListener("click", function () {
-      searchInput.value = "";
-      searchClear.classList.remove("visible");
-      currentPage = 1;
-      applyFilterAndPagination();
-    });
-  }
-  if (pagePrev) {
-    pagePrev.addEventListener("click", function () {
-      if (currentPage > 1) {
-        currentPage -= 1;
-        applyFilterAndPagination();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    });
-  }
-  if (pageNext) {
-    pageNext.addEventListener("click", function () {
-      if (!postList || !allPosts.length) return;
-      var term = searchInput ? normaliseText(searchInput.value) : "";
-      var filtered = allPosts.filter(function (el) {
-        if (!term) return true;
-        var title = normaliseText(el.getAttribute("data-title"));
-        var category = normaliseText(el.getAttribute("data-category"));
-        var tags = normaliseText(el.getAttribute("data-tags"));
-        return title.indexOf(term) !== -1 || category.indexOf(term) !== -1 || tags.indexOf(term) !== -1;
       });
-      var totalPages = Math.max(1, Math.ceil(filtered.length / postsPerPage));
-      if (currentPage < totalPages) {
-        currentPage += 1;
-        applyFilterAndPagination();
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+  if (backToTop) {
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+  if (contactSend) {
+    contactSend.addEventListener("click", function () {
+      var namaInput = document.getElementById("nama");
+      var emailInput = document.getElementById("email");
+      var topikInput = document.getElementById("topik");
+      var pesanInput = document.getElementById("pesan");
+      var nama = namaInput ? namaInput.value : "";
+      var email = emailInput ? emailInput.value : "";
+      var topik = topikInput ? topikInput.value : "Pesan dari Hijab Journal";
+      var pesan = pesanInput ? pesanInput.value : "";
+      var body = "Nama: " + nama + "\nEmail: " + email + "\n\n" + pesan;
+      var mailto = "mailto:kamu@hijabjournal.id?subject=" + encodeURIComponent(topik) + "&body=" + encodeURIComponent(body);
+      window.location.href = mailto;
+    });
+  }
+  var sections = document.querySelectorAll("section[id]");
+  function updateActiveNav() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    var currentId = null;
+    sections.forEach(function (section) {
+      var offsetTop = section.offsetTop - 140;
+      var height = section.offsetHeight;
+      if (scrollY >= offsetTop && scrollY < offsetTop + height) {
+        currentId = section.id;
+      }
+    });
+    navAnchors.forEach(function (anchor) {
+      var href = anchor.getAttribute("href") || "";
+      anchor.classList.remove("active");
+      if (currentId && href === "#" + currentId) {
+        anchor.classList.add("active");
       }
     });
   }
-  applyFilterAndPagination();
-  if (postList) {
-    postList.addEventListener("click", function (e) {
-      var target = e.target;
-      if (!target) return;
-      var link = target.closest(".readmore, .post-entry-title a, .post-thumb");
-      if (link) {
-        e.preventDefault();
-        var articleEl = link.closest(".post-entry");
-        showDetail(articleEl);
-      }
+  updateActiveNav();
+  window.addEventListener("scroll", updateActiveNav);
+  var revealEls = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+    revealEls.forEach(function (el) {
+      observer.observe(el);
+    });
+  } else {
+    revealEls.forEach(function (el) {
+      el.classList.add("show");
     });
   }
 });
